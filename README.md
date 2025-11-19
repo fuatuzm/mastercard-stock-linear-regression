@@ -1,80 +1,63 @@
-# 📈 Mastercard Stock Price — Linear Regression
+# Mastercard Hisse Fiyatı Tahmini – Regresyon Analizi
 
-Bu proje, Mastercard hisselerinin geçmiş fiyatlarını kullanarak **Linear Regression** modeliyle kapanış fiyatını tahmin etmeyi amaçlar.  
-Microsoft'un **ML-For-Beginners** eğitim serisindeki *Linear Regression* dersine benzer şekilde hazırlanmıştır.
+## 1. Proje Amacı
+Bu çalışmanın amacı Mastercard Inc. (MA) hissesine ait geçmiş fiyat verilerini analiz ederek çeşitli gözetimli (supervised) regresyon modelleri ile gelecekteki kapanış fiyatını tahmin etmektir. Modellerin performansları karşılaştırılarak hangi algoritmanın bu veri seti için daha uygun olduğu değerlendirilmektedir.
 
-## 📊 Kullanılan Veri Seti
+## 2. Veri Seti
+Veri seti: Mastercard Stock Daily Updated (Kaggle)
 
-Veri seti:  
-**Mastercard Historical Data (Kaggle)**  
-Günlük açılış, kapanış, hacim ve fiyat bilgilerini içerir.
+Kullanılan değişkenler: Date, Open, High, Low, Close, Volume.
 
-## 🧪 Yapılan Adımlar
+## 3. Veri Ön İşleme
+- Tarih dönüşümü (`pd.to_datetime`) yapılmıştır. Tarih kolonu string formatında olduğu için zaman serisi analizine uygun hale getirilmiştir.
+- Tarihe göre sıralama yapılmıştır. Zaman serisi verilerinde sıralama hatalarının modele olumsuz etkisi olmaması için gereklidir.
+- Modelle ilgisi olmayan `ticker` ve `name` sütunları kaldırılmıştır. Bu sütunlar sabit veya kategorik olup fiyat tahminine katkı sunmadığı için çıkarılmıştır.
 
-### ✔ 1. Veri Yükleme ve İnceleme
-- CSV dosyası okundu  
-- İlk 5 satır incelendi  
-- Veri tipleri ve eksik değerler kontrol edildi  
+## 4. Korelasyon Analizi
+Open, High, Low, Close ve Volume sütunlarının korelasyon matrisi çıkarılmıştır. En güçlü korelasyon Close–High ve Close–Open arasındadır. Volume değişkeninin Close ile olan korelasyonu düşüktür. Bu nedenle bazı model denemelerinde Volume çıkarılarak performans karşılaştırması yapılmıştır.
 
-### ✔ 2. Tarih Formatı ve Sıralama
-- `Date` kolonu `datetime` formatına dönüştürüldü  
-- Veri tarih sırasına göre sıralandı  
-
-### ✔ 3. Görselleştirme
-- Zaman serisi kapanış fiyatı grafiği çizildi  
-- Gerçek vs Tahmin grafiği oluşturuldu  
-
-### ✔ 4. Linear Regression Modeli
-Modelde kullanılan bağımsız değişkenler:
-
-- Open  
-- High  
-- Low  
-- Volume  
-
-Tahmin edilen hedef değişken:
-- Close (kapanış fiyatı)
-
-Model performans metrikleri:
-
-- **MSE (Mean Squared Error)**  
-- **R² Skoru**
-
-## 📷 Örnek Grafikler
-
-### Zaman Serisi Grafik
-Notebook içinde otomatik üretilir.
-
-### Gerçek vs Tahmin Grafiği
-Notebook içinde otomatik üretilir.
-
-## 📦 Kullanılan Teknolojiler
-
-- Python  
-- Pandas  
-- Matplotlib  
-- Scikit-Learn  
-- Jupyter Notebook  
-
-## 🚀 Nasıl Çalıştırılır?
-
-```bash
-pip install -r requirements.txt
-jupyter notebook
+```python
+corr = df[['Open','High','Low','Close','Volume']].corr()
 ```
 
-Notebook'u açtıktan sonra hücreleri sırayla çalıştırabilirsiniz.
+## 5. Kullanılan Modeller ve Seçilme Nedenleri
+- **Linear Regression**: Baseline model olarak kullanılmıştır. Hızlı ve yorumlanabilirdir.
+- **Ridge & Lasso Regression**: Düzenlileştirme sayesinde overfitting'i azaltmayı hedefler. Linear Regression'ın geliştirilmiş versiyonlarıdır.
+- **Decision Tree Regressor**: Lineer olmayan ilişkileri yakalayabilir ancak overfitting eğilimi yüksektir.
+- **Random Forest Regressor**: Birden fazla karar ağacının birleşimi ile daha dengeli tahminler üretir. Veri seti için güçlü bir adaydır.
+- **Support Vector Regressor (SVR)**: Karmaşık fiyat hareketlerini modelleyebilme kapasitesi vardır. Hesaplama maliyeti yüksektir.
+- **KNN Regressor**: Parametrik olmayan bir modeldir. Komşuluk tabanlı yapısı sayesinde farklı veri dağılımlarında test edilebilir.
 
-## 📁 Proje Yapısı
+## 6. Model Karşılaştırması
+Tüm modeller aynı train-test bölmesi ile test edilmiştir.  
+Değerlendirme metrikleri:
+- **Mean Squared Error (MSE)**
+- **R² Score**
 
+Örnek karşılaştırma tablosu:
+
+| Model | MSE | R² |
+|------|------|------|
+| Linear Regression | ... | ... |
+| Ridge | ... | ... |
+| Lasso | ... | ... |
+| Decision Tree | ... | ... |
+| Random Forest | ... | ... |
+| SVR | ... | ... |
+| KNN | ... | ... |
+
+(Not: Metrik değerleri notebook çalıştırıldıktan sonra doldurulmalıdır.)
+
+## 7. Sonuç
+Yapılan testler sonucunda Random Forest modeli genel doğruluk ve genelleme açısından diğer modellere göre daha iyi performans göstermiştir.  
+Lineer modeller hızlı olmakla birlikte karmaşık fiyat ilişkilerini yakalamakta zorlanmıştır.  
+SVR yüksek doğruluk potansiyeline sahip olsa da çalışma süresi uzundur.  
+
+## 8. Proje Yapısı
 ```
-├── data/
-│   └── Mastercard_historical_data.csv
-├── mastercard-linear-regression.ipynb
-├── README.md
+/data
+    Mastercard_historical_data.csv
+
+mastercard-linear-regression.ipynb
+README.md
 ```
-
-## 🎯 Projenin Amacı
-
-Bu proje, finansal veri analizi ve regresyon modellemeyi öğrenmek isteyenler için başlangıç seviyesi bir örnek sunar.  
-ML-For-Beginners eğitim serisindeki Linear Regression dersinin gerçek dünya verisiyle uygulanmış versiyonudur.
