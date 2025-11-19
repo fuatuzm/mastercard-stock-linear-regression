@@ -91,7 +91,7 @@ Bu projede birden fazla gözetimli regresyon modeli uygulanmıştır:
 Aşağıdaki grafiklerde her modelin tahmin performansı ayrıca gösterilmiştir.
 
 ### **Linear Regression Tahmin Grafiği**
-![Linear Regression](images/linear_regression.png)
+![Linear Regression](images/regresyon.png)
 
 ---
 
