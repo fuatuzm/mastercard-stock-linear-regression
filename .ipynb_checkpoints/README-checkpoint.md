@@ -88,12 +88,31 @@ Bu projede birden fazla gözetimli regresyon modeli uygulanmıştır:
 
 ## 7. Model Sonuçlarının Görselleştirilmesi
 
+## 🔮 Tahmini Kapanış Fiyatı (Model Prediction)
+
+Eğitilen Linear Regression modeli kullanılarak, veri setindeki son güne ait veriler üzerinden örnek bir tahmin yapılmıştır.
+
+Modele verilen girdiler:
+
+- Open
+- High
+- Low
+- Volume
+
+Bu değerler kullanılarak modelin ürettiği **tahmini kapanış fiyatı**:
+
+> **≈ 528.79**
+
+Bu sonuç, modelin geçmiş verilere dayanarak gelecekteki fiyatlar hakkında anlamlı tahminler üretebildiğini göstermektedir.
+
+
 Aşağıdaki grafiklerde her modelin tahmin performansı ayrıca gösterilmiştir.
 
 ### **Linear Regression Tahmin Grafiği**
 ![Linear Regression](images/regression.png)
 
 ---
+
 
 
 ## 8. Sonuç ve Değerlendirme
