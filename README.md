@@ -88,7 +88,7 @@ Bu projede birden fazla gözetimli regresyon modeli uygulanmıştır:
 
 ## 7. Model Sonuçlarının Görselleştirilmesi
 
-## 🔮 Tahmini Kapanış Fiyatı (Model Prediction)
+##  Tahmini Kapanış Fiyatı (Model Prediction)
 
 Eğitilen Linear Regression modeli kullanılarak, veri setindeki son güne ait veriler üzerinden örnek bir tahmin yapılmıştır.
 
