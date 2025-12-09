@@ -84,11 +84,22 @@ Bu projede birden fazla gözetimli regresyon modeli uygulanmıştır:
 | **SVR** | Karmaşık ilişki yapısını modelleyebilir |
 | **KNN Regressor** | Veri dağılımına bağlı çalışan parametrik olmayan model |
 
+20 gün sonraki kapanış fiyatını tahmin etmek için kullanılan tüm regresyon modellerinin performans sonuçları aşağıdaki tabloda verilmiştir.
+
+
+
+| Model | R² (%) | RMSE | MSE |
+|-------|--------|-------|------|
+| Linear Regression | **92.97** | 22.832 | 521.322 |
+| SVR | 37.31 | 68.196 | 4650.691 |
+| KNN | -77.90 | 114.881 | 13197.629 |
+| Decision Tree | -89.67 | 118.621 | 14071.013 |
+| Random Forest | -101.45 | 122.247 | 14944.367 |
 ---
 
 ## 7. Model Sonuçlarının Görselleştirilmesi
 
-## 🔮 Tahmini Kapanış Fiyatı (Model Prediction)
+##  Tahmini Kapanış Fiyatı (Model Prediction)
 
 Eğitilen Linear Regression modeli kullanılarak, veri setindeki son güne ait veriler üzerinden örnek bir tahmin yapılmıştır.
 
